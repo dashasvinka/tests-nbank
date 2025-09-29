@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requests/iteration_1.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/interation1/CreateAccountTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/interation1/CreateUserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/interation1/LoginUserTest.java" afterDir="false" />
+    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add api autotests">
+      <change afterPath="$PROJECT_DIR$/docs/requirements_interaration_2.text" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requests/interation_2.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +24,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="improved-tests" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -59,6 +58,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\dev\tests-nbank\requests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\tests-nbank\docs" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.CreateAccountTest">
@@ -125,9 +127,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CreateAccountTest" />
+        <item itemvalue="JUnit.LoginUserTest" />
         <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithInvalidData" />
         <item itemvalue="JUnit.CreateUserTest" />
+        <item itemvalue="JUnit.CreateAccountTest" />
         <item itemvalue="JUnit.LoginUserTest" />
       </list>
     </recent_temporary>
@@ -141,6 +144,29 @@
       <option name="presentableId" value="Default" />
       <updated>1759094464693</updated>
     </task>
+    <task id="LOCAL-00001" summary="add api autotests">
+      <created>1759168336520</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759168336520</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add api autotests" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api autotests" />
   </component>
 </project>

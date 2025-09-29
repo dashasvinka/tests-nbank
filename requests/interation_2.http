@@ -1,0 +1,209 @@
+// Admin
+YWRtaW46YWRtaW4=
+admin
+admin
+
+// Exist 1ST user
+ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+dasha1995
+dasha1995D$
+{
+  "id": 2,
+  "accountNumber": "ACC2",
+  "balance": 0,
+  "transactions": []
+}
+{
+  "id": 3,
+  "accountNumber": "ACC3",
+  "balance": 0,
+  "transactions": []
+}
+
+// Exist 2ND user
+bGVuYTIwMTA6bGVuYTIwMTBMJQ==
+lena2010
+lena2010L%
+{
+  "id": 4,
+  "accountNumber": "ACC4",
+  "balance": 0,
+  "transactions": []
+}
+
+// Positive test: User can make a deposit into his created account
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "id": 2,
+  "balance": 5000
+}
+
+// Negative test: User can not make a deposit into his created account more than 5000
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "id": 2,
+  "balance": 5000.01
+}
+
+// Negative test: User can not make a deposit into his created account value equal to neutral
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "id": 2,
+  "balance": 0
+}
+
+// Negative test: User can not make a deposit into his created account value equal to negative
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "id": 2,
+  "balance": -1
+}
+
+// Negative test: User can not make a deposit into his uncreated account
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "id": 22,
+  "balance": 1500
+}
+
+// Negative test: User can not make a deposit into someone else's account
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "id": 4,
+  "balance": 1500
+}
+
+
+// Positive test: User can make a transfer from one of his accounts to another
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 3,
+  "amount": 10000
+}
+
+// Negative test: User can not make a transfer over 10000
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 3,
+  "amount": 10000.01
+}
+
+// Negative test: User can not make a transfer in excess of the amount he has on deposit
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 3,
+  "amount": 1000
+}
+
+// Negative test: User can not make a transfer equal to 0
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 3,
+  "amount": 0
+}
+
+// Negative test: User can not make a transfer equal to a negative amount
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 3,
+  "amount": -100
+}
+
+// Negative test: User can not make a transfer from one of his accounts to the same account
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 2,
+  "amount": 10
+}
+
+// Negative test: User can not make a transfer to an account that does not exist
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 222,
+  "amount": 10
+}
+
+// Negative test: User can not make a transfer to someone else's account
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "senderAccountId": 2,
+  "receiverAccountId": 4,
+  "amount": 10
+}
+
+// Positive test: User can add a missing name
+POST http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "name": "Dasha Kozina"
+}
+
+// Positive test: User can update exist name
+POST http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "name": "Dasha Khmelkova"
+}
+
+// Negative test: User can not update exist name to one word name
+POST http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "name": "Kozina"
+}
+
+// Negative test: User can not update exist name to a name consisting of two words separated by a character other than a space
+POST http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "name": "Kozina_Daria"
+}
+
+// Negative test: User can not updated for a name containing symbols other than letters
+POST http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic ZGFzaGExOTk1OmRhc2hhMTk5NUQk
+{
+  "name": "#Kozina Daria1"
+}
+
+
