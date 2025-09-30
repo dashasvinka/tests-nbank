@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add api autotests">
-      <change afterPath="$PROJECT_DIR$/docs/requirements_interaration_2.text" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requests/interation_2.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" afterDir="false" />
+    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add api autotests for 2 interation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/TransferBetweenAccountsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/TransferBetweenAccountsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,75 +62,94 @@
       <recent name="C:\dev\tests-nbank\docs" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CreateAccountTest">
-    <configuration name="CreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenNonExistentAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="interation1.*" />
+          <option name="PATTERN" value="interation2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.CreateAccountTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tests-nbank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="interation1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.CreateUserTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateUserTest.adminCanNotCreateUserWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tests-nbank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="interation1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanNotCreateUserWithInvalidData(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenNonExistentAccounts" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsEqual0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="interation1.*" />
+          <option name="PATTERN" value="interation2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.LoginUserTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAccountsEqual0" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsNegativeAmount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAccountsNegativeAmount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenSameAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenSameAccounts" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LoginUserTest" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithInvalidData" />
-        <item itemvalue="JUnit.CreateUserTest" />
-        <item itemvalue="JUnit.CreateAccountTest" />
-        <item itemvalue="JUnit.LoginUserTest" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenNonExistentAccounts" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenSameAccounts" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsNegativeAmount" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsEqual0" />
       </list>
     </recent_temporary>
   </component>
@@ -151,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1759168336520</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add api autotests for 2 interation">
+      <created>1759180989408</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759180989408</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +192,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add api autotests" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api autotests" />
+    <MESSAGE value="add api autotests for 2 interation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api autotests for 2 interation" />
   </component>
 </project>
