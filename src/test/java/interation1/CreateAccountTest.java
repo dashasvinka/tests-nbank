@@ -4,10 +4,14 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import models.CreateUserRequest;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import requests.AdminCreateUserRequest;
+import specs.RequestSpecs;
+import specs.ResponseSpecs;
 
 import java.util.List;
 
@@ -24,7 +28,16 @@ public class CreateAccountTest {
 
     @Test
     public void userCanCreateAccountTest() {
-        // Create user
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                        .username("kate20001qQ")
+                                .password("kate1qQ$")
+                                        .build();
+        // Создание пользователя
+        new AdminCreateUserRequest(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
