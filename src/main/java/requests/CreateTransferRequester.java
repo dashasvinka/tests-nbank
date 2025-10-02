@@ -3,30 +3,29 @@ package requests;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import models.CreateUserRequest;
-import org.apache.http.HttpStatus;
+import models.BaseModel;
+import models.CreateTransferRequest;
 
 import static io.restassured.RestAssured.given;
 
-public class AdminCreateUserRequester extends Request<CreateUserRequest> {
-    public AdminCreateUserRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
+public class CreateTransferRequester  extends Request<CreateTransferRequest>{
+    public CreateTransferRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         super(requestSpecification, responseSpecification);
     }
 
     @Override
-    public ValidatableResponse post(CreateUserRequest model) {
+    public ValidatableResponse post(CreateTransferRequest model) {
         return given()
                 .spec(requestSpecification)
                 .body(model)
-                .post("/api/v1/admin/users")
+                .post("/api/v1/accounts/transfer")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
                 .spec(responseSpecification);
     }
 
     @Override
-    public ValidatableResponse put(CreateUserRequest model) {
+    public ValidatableResponse put(CreateTransferRequest model) {
         throw new UnsupportedOperationException("PUT is not supported in UpdateUserNameRequester");
     }
 }

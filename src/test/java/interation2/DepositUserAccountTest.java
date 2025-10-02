@@ -1,467 +1,226 @@
 package interation2;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import generators.RandomData;
 import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
-import org.hamcrest.Matchers;
+import models.CreateDepositRequest;
+import models.CreateUserRequest;
+import models.UserRole;
 import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
+import requests.AdminCreateUserRequester;
+import requests.CreateAccountRequester;
+import requests.CreateDepositRequester;
+import specs.RequestSpecs;
+import specs.ResponseSpecs;
 
 public class DepositUserAccountTest {
     @Test
     public void userCanMakeDepositIntoOwnAccount() {
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwate20001qQ",
-                          "password": "Wwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
 
-        // Get auth token
-        String userAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwate20001qQ",
-                          "password": "Wwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response response = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
+        // создание пользователя
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
+        // создание аккаунта
+        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null)
                 .extract().response();
-        String id = response.jsonPath().getString("id");
-        String requestBody = """
-            {
-              "id": %s,
-              "balance": 3000
-            }
-            """.formatted(id);
+        Long id = Long.parseLong(response.jsonPath().getString("id"));
 
-        // Create deposit
-        given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
+                .id(id)
+                .balance(3000)
+                .build();
+
+        // создание депозита
+         new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                 ResponseSpecs.requestReturnsOK())
+                .post(createDepositRequest);
     }
 
     @Test
     public void userCanNotMakeDepositIntoOwnAccountOver5000() {
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwwate20001qQ",
-                          "password": "Wwwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
 
-        // Get auth token
-        String userAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwwate20001qQ",
-                          "password": "Wwwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response response = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
+        // создание пользователя
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
+        // создание аккаунта
+        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null)
                 .extract().response();
-        String id = response.jsonPath().getString("id");
-        String requestBody = """
-            {
-              "id": %s,
-              "balance": 5000.01
-            }
-            """.formatted(id);
+        Long id = Long.parseLong(response.jsonPath().getString("id"));
 
-        // Create deposit
-        given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                // Deposit amount cannot exceed 5000
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
+        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
+                .id(id)
+                .balance(5000.01)
+                .build();
+
+        // создание депозита
+        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.requestReturnsBadRequest("Deposit amount cannot exceed 5000"))
+                .post(createDepositRequest);
     }
 
     @Test
     public void userCanNotMakeDepositIntoOwnAccountNegativeSum() {
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwwate20002qQ",
-                          "password": "Wwwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
 
-        // Get auth token
-        String userAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwwate20002qQ",
-                          "password": "Wwwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response response = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
+        // создание пользователя
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
+        // создание аккаунта
+        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null)
                 .extract().response();
-        String id = response.jsonPath().getString("id");
-        String requestBody = """
-            {
-              "id": %s,
-              "balance": -1
-            }
-            """.formatted(id);
+        Long id = Long.parseLong(response.jsonPath().getString("id"));
 
-        // Create deposit
-        given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                // Deposit amount must be at least 0.01
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
+        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
+                .id(id)
+                .balance(-1.01)
+                .build();
+
+        // создание депозита
+        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.requestReturnsBadRequest("Deposit amount must be at least 0.01"))
+                .post(createDepositRequest);
     }
 
     @Test
     public void userCanNotMakeDepositIntoOwnAccountSumEqualToZero() {
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwwate20003qQ",
-                          "password": "Wwwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
 
-        // Get auth token
-        String userAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwwate20003qQ",
-                          "password": "Wwwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response response = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
+        // создание пользователя
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
+        // создание аккаунта
+        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null)
                 .extract().response();
-        String id = response.jsonPath().getString("id");
-        String requestBody = """
-            {
-              "id": %s,
-              "balance": 0
-            }
-            """.formatted(id);
+        Long id = Long.parseLong(response.jsonPath().getString("id"));
 
-        // Create deposit
-        given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                // Deposit amount must be at least 0.01
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
+        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
+                .id(id)
+                .balance(-1.01)
+                .build();
+
+        // создание депозита
+        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.requestReturnsBadRequest("Deposit amount must be at least 0.01"))
+                .post(createDepositRequest);
     }
 
     @Test
     public void userCanNotMakeDepositIntoUnCreatedAccount() {
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwwate20008qQ",
-                          "password": "Wwwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
 
-        // Get auth token
-        String userAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwwate20008qQ",
-                          "password": "Wwwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response response = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
+        // создание пользователя
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
+        // создание аккаунта
+        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null)
                 .extract().response();
-        String id = response.jsonPath().getString("id");
-        String requestBody = """
-            {
-              "id": 303039330,
-              "balance": 100
-            }
-            """;
+        Long id = Long.parseLong(response.jsonPath().getString("id"));
 
-        // Create deposit
-        given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                // Unauthorized access to account
-                .statusCode(HttpStatus.SC_FORBIDDEN);
+        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
+                .id(0)
+                .balance(100)
+                .build();
+
+        // создание депозита
+        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.requestReturnsForbidden())
+                .post(createDepositRequest);
     }
 
     @Test
-    public void userCanNotMakeDepositIntoAnotherUsersAccountt() {
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwwate40003qQ",
-                          "password": "Wwwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+    public void userCanNotMakeDepositIntoAnotherUsersAccount() {
 
-        // Get auth token
-        String userAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwwate40003qQ",
-                          "password": "Wwwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response response = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
+        CreateUserRequest userRequest = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
+
+        // создание пользователя 1
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequest);
+
+        // создание аккаунта 1
+        new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null);
+
+        CreateUserRequest userRequestAnother = CreateUserRequest.builder()
+                .username(RandomData.getUsername())
+                .password(RandomData.getPassword())
+                .role(UserRole.USER.toString())
+                .build();
+
+        // создание пользователя 2
+        new AdminCreateUserRequester(
+                RequestSpecs.adminSpec(),
+                ResponseSpecs.entityWasCreated())
+                .post(userRequestAnother);
+
+        // создание аккаунта 2
+        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequestAnother.getUsername(), userRequestAnother.getPassword()),
+                ResponseSpecs.entityWasCreated())
+                .post(null)
                 .extract().response();
-        String id = response.jsonPath().getString("id");
+        Long id = Long.parseLong(response.jsonPath().getString("id"));
 
-        // Create user
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "Wwwwa1te30003qQ",
-                          "password": "Wwwwate1qQ$",
-                          "role": "USER"
-                        }
-                        """)
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED);
+        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
+                .id(id)
+                .balance(100)
+                .build();
 
-        // Get auth token
-        String userAnotherAuthHeader =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .body("""
-                        {
-                          "username": "Wwwwa1te30003qQ",
-                          "password": "Wwwwate1qQ$"
-                        }
-                        """)
-                        .post("http://localhost:4111/api/v1/auth/login")
-                        .then()
-                        .assertThat()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .header("Authorization");
-        // Create account
-        Response responseNew = RestAssured
-                .given()
-                .header("Authorization", userAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .post("http://localhost:4111/api/v1/accounts")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
-                .extract().response();
-        String idNew = response.jsonPath().getString("id");
+        // создание депозита в чужой аккаунт
+        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                ResponseSpecs.requestReturnsForbidden())
+                .post(createDepositRequest);
 
-        String requestBody = """
-            {
-              "id": %s,
-              "balance": 0
-            }
-            """.formatted(id);
-
-        // Create deposit
-        given()
-                .header("Authorization", userAnotherAuthHeader)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(requestBody)
-                .post("http://localhost:4111/api/v1/accounts/deposit")
-                .then()
-                .assertThat()
-                // Deposit amount must be at least 0.01
-                .statusCode(HttpStatus.SC_FORBIDDEN);
     }
 }

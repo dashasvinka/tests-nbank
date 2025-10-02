@@ -11,8 +11,6 @@ import requests.AdminLoginUserRequester;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
-import static io.restassured.RestAssured.given;
-
 public class LoginUserTest extends BaseTest {
 
     @Test

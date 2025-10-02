@@ -21,4 +21,9 @@ public class AdminLoginUserRequester extends Request<LoginUserRequest> {
                         .then().assertThat()
                         .spec(responseSpecification);
     }
+
+    @Override
+    public ValidatableResponse put(LoginUserRequest model) {
+        throw new UnsupportedOperationException("PUT is not supported in UpdateUserNameRequester");
+    }
 }

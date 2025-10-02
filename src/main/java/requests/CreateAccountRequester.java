@@ -21,4 +21,9 @@ public class CreateAccountRequester extends Request {
                 .assertThat()
                 .spec(responseSpecification);
     }
+
+    @Override
+    public ValidatableResponse put(BaseModel model) {
+        throw new UnsupportedOperationException("PUT is not supported in UpdateUserNameRequester");
+    }
 }
