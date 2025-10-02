@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class CreateUserRequest extends BaseModel {
     private String username;
     private String password;
+    private String role;
 }

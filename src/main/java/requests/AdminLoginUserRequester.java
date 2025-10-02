@@ -1,6 +1,5 @@
 package requests;
 
-import io.restassured.response.Validatable;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -8,8 +7,8 @@ import models.LoginUserRequest;
 
 import static io.restassured.RestAssured.given;
 
-public class AdminLoginUserRequest extends Request<LoginUserRequest> {
-    public AdminLoginUserRequest(RequestSpecification requestSpecification, ResponseSpecification responseSpecification){
+public class AdminLoginUserRequester extends Request<LoginUserRequest> {
+    public AdminLoginUserRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification){
         super(requestSpecification, responseSpecification);
     }
     @Override
