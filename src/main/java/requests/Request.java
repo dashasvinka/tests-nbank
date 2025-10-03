@@ -17,4 +17,6 @@ public abstract class Request<T extends BaseModel> {
     public abstract ValidatableResponse post(T model);
 
     public abstract ValidatableResponse put(T model);
+
+    public abstract ValidatableResponse get();
 }

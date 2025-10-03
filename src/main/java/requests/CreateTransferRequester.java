@@ -3,7 +3,6 @@ package requests;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import models.BaseModel;
 import models.CreateTransferRequest;
 
 import static io.restassured.RestAssured.given;
@@ -27,5 +26,10 @@ public class CreateTransferRequester  extends Request<CreateTransferRequest>{
     @Override
     public ValidatableResponse put(CreateTransferRequest model) {
         throw new UnsupportedOperationException("PUT is not supported in UpdateUserNameRequester");
+    }
+
+    @Override
+    public ValidatableResponse get() {
+        throw new UnsupportedOperationException("GET is not supported in UpdateUserNameRequester");
     }
 }

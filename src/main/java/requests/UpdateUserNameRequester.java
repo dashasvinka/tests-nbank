@@ -27,4 +27,9 @@ public class UpdateUserNameRequester extends Request<UpdateNameRequest> {
     public ValidatableResponse post(UpdateNameRequest model) {
         throw new UnsupportedOperationException("POST is not supported in UpdateUserNameRequester");
     }
+
+    @Override
+    public ValidatableResponse get() {
+        throw new UnsupportedOperationException("GET is not supported in UpdateUserNameRequester");
+    }
 }

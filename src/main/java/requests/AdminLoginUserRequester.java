@@ -26,4 +26,9 @@ public class AdminLoginUserRequester extends Request<LoginUserRequest> {
     public ValidatableResponse put(LoginUserRequest model) {
         throw new UnsupportedOperationException("PUT is not supported in UpdateUserNameRequester");
     }
+
+    @Override
+    public ValidatableResponse get() {
+        throw new UnsupportedOperationException("GET is not supported in UpdateUserNameRequester");
+    }
 }

@@ -27,4 +27,9 @@ public class CreateDepositRequester extends Request<CreateDepositRequest>{
     public ValidatableResponse put(CreateDepositRequest model) {
         throw new UnsupportedOperationException("PUT is not supported in UpdateUserNameRequester");
     }
+
+    @Override
+    public ValidatableResponse get() {
+        throw new UnsupportedOperationException("GET is not supported in UpdateUserNameRequester");
+    }
 }
