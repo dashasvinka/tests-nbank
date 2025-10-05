@@ -3,6 +3,7 @@ package interation1;
 import generators.RandomModelGenerator;
 import models.CreateUserRequest;
 import models.CreateUserResponse;
+import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,6 +25,8 @@ public class CreateUserTest extends BaseTest {
                 Endpoint.ADMIN_USER,
                 ResponseSpecs.entityWasCreated())
                 .post(userRequest);
+
+        ModelAssertions.assertThatModels(userRequest, createUserResponse).match();
 
         softly.assertThat(userRequest.getPassword()).isNotEqualTo(createUserResponse.getPassword());
         softly.assertThat(userRequest.getRole()).isEqualTo(createUserResponse.getRole());
