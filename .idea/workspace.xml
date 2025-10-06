@@ -5,15 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add: refactor 1 senior">
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/comparison/ModelAssertions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/comparison/ModelComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/comparison/ModelComparisonConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AccountSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/ProfileInfoSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/UpdateNameRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/UpdateNameRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/AdminLoginUserRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/UpdateUserNameRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/CrudEndpointInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/CrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/ValidatedCrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/ValidatedCrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/interation1/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation1/CreateAccountTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/interation1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation1/CreateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation1/LoginUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,14 +62,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/dev/tests-nbank/requests"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/tests-nbank/requests&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="models" />
@@ -73,72 +81,8 @@
       <recent name="C:\dev\tests-nbank\docs" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoginUserTest.userCanGenerateAuthTokenTest">
-    <configuration name="CreateAccountTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tests-nbank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="interation1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.CreateAccountTest" />
-      <option name="METHOD_NAME" value="userCanCreateAccountTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateUserTest.adminCanCreateUserWithCorrectData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tests-nbank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="interation1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanCreateUserWithCorrectData" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateUserTest.adminCanNotCreateUserWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tests-nbank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="interation1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanNotCreateUserWithInvalidData(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginUserTest.userCanGenerateAuthTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tests-nbank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="interation1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="interation1" />
-      <option name="MAIN_CLASS_NAME" value="interation1.LoginUserTest" />
-      <option name="METHOD_NAME" value="userCanGenerateAuthTokenTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoAnotherUsersAccount">
+    <configuration name="DepositUserAccountTest.userCanMakeDepositIntoOwnAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
@@ -147,8 +91,72 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="interation2" />
-      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
-      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts" />
+      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
+      <option name="METHOD_NAME" value="userCanMakeDepositIntoOwnAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoAnotherUsersAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoAnotherUsersAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoOwnAccountInvalidSum" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoOwnAccountInvalidSum(java.lang.Double,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoUnCreatedAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UpdateUserNameTest.userCanNotUpdateNameWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.UpdateUserNameTest" />
+      <option name="METHOD_NAME" value="userCanNotUpdateNameWithInvalidData(java.lang.String,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -156,11 +164,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LoginUserTest.userCanGenerateAuthTokenTest" />
-        <item itemvalue="JUnit.CreateAccountTest.userCanCreateAccountTest" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserWithCorrectData" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanNotCreateUserWithInvalidData" />
-        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts" />
+        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoAnotherUsersAccount" />
+        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount" />
+        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoOwnAccountInvalidSum" />
+        <item itemvalue="JUnit.DepositUserAccountTest.userCanMakeDepositIntoOwnAccount" />
+        <item itemvalue="JUnit.UpdateUserNameTest.userCanNotUpdateNameWithInvalidData" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1759574006420</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add: refactor 1 senior">
+      <created>1759699307635</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1759699307635</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

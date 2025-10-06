@@ -1,6 +1,5 @@
 package interation1;
 
-import generators.RandomModelGenerator;
 import models.CreateUserRequest;
 import org.junit.jupiter.api.Test;
 import requests.skelethon.Endpoint;

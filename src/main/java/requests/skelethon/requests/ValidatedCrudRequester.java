@@ -20,9 +20,19 @@ public class ValidatedCrudRequester<T extends BaseModel> extends HttpRequest imp
     }
 
     @Override
-    public Object get(int id) {
-        return null;
+    public T put(BaseModel model) {
+        return (T) crudRequester.put(model).extract().as(endpoint.getResponseModel());
     }
+
+    public T get() {
+        return (T) crudRequester.get().extract().as(endpoint.getResponseModel());
+    }
+
+    @Override
+    public Object get(int id) {
+        throw new UnsupportedOperationException("get(int id) не используется");
+    }
+
 
     @Override
     public Object update(long id, BaseModel model) {

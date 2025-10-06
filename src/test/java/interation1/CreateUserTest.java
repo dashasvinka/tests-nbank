@@ -27,10 +27,6 @@ public class CreateUserTest extends BaseTest {
                 .post(userRequest);
 
         ModelAssertions.assertThatModels(userRequest, createUserResponse).match();
-
-        softly.assertThat(userRequest.getPassword()).isNotEqualTo(createUserResponse.getPassword());
-        softly.assertThat(userRequest.getRole()).isEqualTo(createUserResponse.getRole());
-        softly.assertThat(userRequest.getUsername()).isEqualTo(createUserResponse.getUsername());
     }
 
     public static Stream<Arguments> userInvalidData() {

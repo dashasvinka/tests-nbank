@@ -1,17 +1,16 @@
 package interation2;
-
-import generators.RandomData;
 import interation1.BaseTest;
-import io.restassured.response.Response;
 import models.*;
+import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.AdminCreateUserRequester;
-import requests.CreateAccountRequester;
-import requests.CreateDepositRequester;
-import requests.GetProfileInfoRequester;
+import requests.skelethon.Endpoint;
+import requests.skelethon.requests.CrudRequester;
+import requests.steps.AccountSteps;
+import requests.steps.AdminSteps;
+import requests.steps.ProfileInfoSteps;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
@@ -20,46 +19,20 @@ import java.util.stream.Stream;
 public class DepositUserAccountTest extends BaseTest {
     @Test
     public void userCanMakeDepositIntoOwnAccount() {
-        CreateUserRequest userRequest = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
-
-        // создание пользователя
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequest);
-
-        // создание аккаунта
-        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.entityWasCreated())
-                .post(null)
-                .extract().response();
-        Long id = Long.parseLong(response.jsonPath().getString("id"));
-
+        CreateUserRequest userRequest = AdminSteps.createUser();
+        Long id = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
         CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
                 .id(id)
                 .balance(3000)
                 .build();
-
-        // создание депозита
-        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsOK())
-                .post(createDepositRequest);
-
-        // проверяем что баланс изменился и равен пополнению
-        GetProfileInfoResponse result = new GetProfileInfoRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsOK())
-                .get().extract().as(GetProfileInfoResponse.class);
-
-        AccountModel account = result.getAccounts().stream()
-                .filter(acc -> acc.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("Account with id " + id + " not found"));
-
-        softly.assertThat(account.getBalance()).isEqualTo(3000);
+        new CrudRequester(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.DEPOSITS,
+                ResponseSpecs.requestReturnsOK()
+        ).post(createDepositRequest);
+        GetProfileInfoResponse result = ProfileInfoSteps.getProfile(userRequest.getUsername(), userRequest.getPassword());
+        AccountModel account = AccountSteps.findAccountById(result, id);
+        ModelAssertions.assertThatModels(account, createDepositRequest).match();
     }
 
     public static Stream<Arguments> sumInvalidData() {
@@ -72,139 +45,62 @@ public class DepositUserAccountTest extends BaseTest {
     @MethodSource("sumInvalidData")
     @ParameterizedTest
     public void userCanNotMakeDepositIntoOwnAccountInvalidSum(Double sum, String errorMessage) {
-        CreateUserRequest userRequest = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
-
-        // создание пользователя
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequest);
-
-        // создание аккаунта
-        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.entityWasCreated())
-                .post(null)
-                .extract().response();
-        Long id = Long.parseLong(response.jsonPath().getString("id"));
-
+        CreateUserRequest userRequest = AdminSteps.createUser();
+        Long id = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
         CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
                 .id(id)
                 .balance(sum)
                 .build();
-
-        // создание депозита
-        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsBadRequest(errorMessage))
-                .post(createDepositRequest);
-
-        // проверяем что баланс не изменился и равен 0
-        GetProfileInfoResponse result = new GetProfileInfoRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsOK())
-                .get().extract().as(GetProfileInfoResponse.class);
-
-        AccountModel account = result.getAccounts().stream()
-                .filter(acc -> acc.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("Account with id " + id + " not found"));
-
-        softly.assertThat(account.getBalance()).isEqualTo(0);
+        CreateDepositRequest expectedResult = CreateDepositRequest.builder()
+                .id(id)
+                .balance(0)
+                .build();
+        new CrudRequester(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.DEPOSITS,
+                ResponseSpecs.requestReturnsBadRequest(errorMessage)
+        ).post(createDepositRequest);
+        GetProfileInfoResponse result = ProfileInfoSteps.getProfile(userRequest.getUsername(), userRequest.getPassword());
+        AccountModel account = AccountSteps.findAccountById(result, id);
+        ModelAssertions.assertThatModels(account, expectedResult).match();
     }
 
     @Test
     public void userCanNotMakeDepositIntoUnCreatedAccount() {
-        CreateUserRequest userRequest = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
-
-        // создание пользователя
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequest);
-
-        // создание аккаунта
-        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.entityWasCreated())
-                .post(null)
-                .extract().response();
-        Long id = Long.parseLong(response.jsonPath().getString("id"));
-
+        CreateUserRequest userRequest = AdminSteps.createUser();
+        AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
         CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
                 .id(0)
                 .balance(100)
                 .build();
-
-        // создание депозита
-        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsForbidden())
-                .post(createDepositRequest);
+        new CrudRequester(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.DEPOSITS,
+                ResponseSpecs.requestReturnsForbidden()
+        ).post(createDepositRequest);
     }
 
     @Test
     public void userCanNotMakeDepositIntoAnotherUsersAccount() {
-
-        CreateUserRequest userRequest = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
-
-        // создание пользователя 1
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequest);
-
-        // создание аккаунта 1
-        new CreateAccountRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.entityWasCreated())
-                .post(null);
-
-        CreateUserRequest userRequestAnother = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
-
-        // создание пользователя 2
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequestAnother);
-
-        // создание аккаунта 2
-        Response response = new CreateAccountRequester(RequestSpecs.authAsUser(userRequestAnother.getUsername(), userRequestAnother.getPassword()),
-                ResponseSpecs.entityWasCreated())
-                .post(null)
-                .extract().response();
-        Long id = Long.parseLong(response.jsonPath().getString("id"));
-
+        CreateUserRequest userRequest = AdminSteps.createUser();
+        AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
+        CreateUserRequest userRequestAnother = AdminSteps.createUser();
+        Long id = AccountSteps.createAccountAndGetId(userRequestAnother.getUsername(), userRequestAnother.getPassword());
         CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
                 .id(id)
                 .balance(100)
                 .build();
-
-        // создание депозита в чужой аккаунт
-        new CreateDepositRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsForbidden())
-                .post(createDepositRequest);
-
-        // проверяем что баланс не изменился и равен 0
-        GetProfileInfoResponse result = new GetProfileInfoRequester(RequestSpecs.authAsUser(userRequestAnother.getUsername(), userRequestAnother.getPassword()),
-                ResponseSpecs.requestReturnsOK())
-                .get().extract().as(GetProfileInfoResponse.class);
-
-        AccountModel account = result.getAccounts().stream()
-                .filter(acc -> acc.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("Account with id " + id + " not found"));
-
-        softly.assertThat(account.getBalance()).isEqualTo(0);
+        CreateDepositRequest expectedResult = CreateDepositRequest.builder()
+                .id(id)
+                .balance(0)
+                .build();
+        new CrudRequester(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.DEPOSITS,
+                ResponseSpecs.requestReturnsForbidden()
+        ).post(createDepositRequest);
+        GetProfileInfoResponse result = ProfileInfoSteps.getProfile(userRequestAnother.getUsername(), userRequestAnother.getPassword());
+        AccountModel account = AccountSteps.findAccountById(result, id);
+        ModelAssertions.assertThatModels(account, expectedResult).match();
     }
 }

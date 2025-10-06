@@ -1,6 +1,5 @@
 package interation1;
 
-import generators.RandomModelGenerator;
 import models.CreateUserRequest;
 import models.CreateUserResponse;
 import models.LoginUserRequest;
