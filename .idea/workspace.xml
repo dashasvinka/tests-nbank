@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add: refactor 2 interation senior">
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/CreateDepositRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateDepositRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="improved-tests" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="33LReixUeXJewTNWvJ7wWk90Fea" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/tests-nbank/requests&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="models" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\tests-nbank\requests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\tests-nbank\docs" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount">
+    <configuration name="DepositUserAccountTest.userCanMakeDepositIntoOwnAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
+      <option name="METHOD_NAME" value="userCanMakeDepositIntoOwnAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoUnCreatedAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenNonExistentAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenNonExistentAccounts" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenSameAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tests-nbank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="interation2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="interation2" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenSameAccounts" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount" />
+        <item itemvalue="JUnit.DepositUserAccountTest.userCanMakeDepositIntoOwnAccount" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenNonExistentAccounts" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenSameAccounts" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="" />
+      <created>1759094464693</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1759094464693</updated>
+    </task>
+    <task id="LOCAL-00001" summary="add api autotests">
+      <created>1759168336520</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759168336520</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add api autotests for 2 interation">
+      <created>1759180989408</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759180989408</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add api autotests for 2 interation">
+      <created>1759257746829</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1759257746829</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add api autotests for 1 interation middle">
+      <created>1759267395049</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1759267395049</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add api autotests for 1 interation middle">
+      <created>1759377731413</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1759377731413</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add api autotests for 2 interation middle">
+      <created>1759387236890</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1759387236890</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix: review#1">
+      <created>1759518742989</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1759518742989</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add: refactor 1 senior">
+      <created>1759574006420</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1759574006420</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add: refactor 1 senior">
+      <created>1759699307635</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1759699307635</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add: refactor 2 interation senior">
+      <created>1759786110837</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1759786110837</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add: refactor 2 interation senior">
+      <created>1759829730983</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1759829730983</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add api autotests" />
+    <MESSAGE value="add api autotests for 2 interation" />
+    <MESSAGE value="add api autotests for 1 interation middle" />
+    <MESSAGE value="add api autotests for 2 interation middle" />
+    <MESSAGE value="fix: review#1" />
+    <MESSAGE value="add: refactor 1 senior" />
+    <MESSAGE value="add: refactor 2 interation senior" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: refactor 2 interation senior" />
+  </component>
+</project>
