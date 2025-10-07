@@ -1,5 +1,6 @@
 package interation2;
 
+import generators.RandomModelGenerator;
 import interation1.BaseTest;
 import models.*;
 import models.comparison.ModelAssertions;
@@ -23,7 +24,8 @@ public class DepositUserAccountTest extends BaseTest {
     public void userCanMakeDepositIntoOwnAccount() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         Long id = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
-        CreateDepositRequest createDepositRequest = TestData.buildCreateDepositRequest(id, 3000);
+        CreateDepositRequest createDepositRequest  = RandomModelGenerator.generate(CreateDepositRequest.class);
+        createDepositRequest.setId(id);
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.DEPOSITS,
@@ -62,7 +64,8 @@ public class DepositUserAccountTest extends BaseTest {
     public void userCanNotMakeDepositIntoUnCreatedAccount() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
-        CreateDepositRequest createDepositRequest = TestData.buildCreateDepositRequest(0L, 100);
+        CreateDepositRequest createDepositRequest  = RandomModelGenerator.generate(CreateDepositRequest.class);
+        createDepositRequest.setId(0);
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.DEPOSITS,
