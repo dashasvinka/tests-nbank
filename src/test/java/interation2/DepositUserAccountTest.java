@@ -1,4 +1,5 @@
 package interation2;
+
 import interation1.BaseTest;
 import models.*;
 import models.comparison.ModelAssertions;
@@ -11,6 +12,7 @@ import requests.skelethon.requests.CrudRequester;
 import requests.steps.AccountSteps;
 import requests.steps.AdminSteps;
 import requests.steps.ProfileInfoSteps;
+import requests.steps.TestData;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
@@ -21,10 +23,7 @@ public class DepositUserAccountTest extends BaseTest {
     public void userCanMakeDepositIntoOwnAccount() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         Long id = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
-        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
-                .id(id)
-                .balance(3000)
-                .build();
+        CreateDepositRequest createDepositRequest = TestData.buildCreateDepositRequest(id, 3000);
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.DEPOSITS,
@@ -37,24 +36,18 @@ public class DepositUserAccountTest extends BaseTest {
 
     public static Stream<Arguments> sumInvalidData() {
         return Stream.of(
-                Arguments.of(5000.01, "Deposit amount cannot exceed 5000"),
-                Arguments.of(0.00, "Deposit amount must be at least 0.01"),
-                Arguments.of(-10.01, "Deposit amount must be at least 0.01"));
+                Arguments.of(5001, "Deposit amount cannot exceed 5000"),
+                Arguments.of(0, "Deposit amount must be at least 0.01"),
+                Arguments.of(-10, "Deposit amount must be at least 0.01"));
     }
 
     @MethodSource("sumInvalidData")
     @ParameterizedTest
-    public void userCanNotMakeDepositIntoOwnAccountInvalidSum(Double sum, String errorMessage) {
+    public void userCanNotMakeDepositIntoOwnAccountInvalidSum(Integer sum, String errorMessage) {
         CreateUserRequest userRequest = AdminSteps.createUser();
         Long id = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
-        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
-                .id(id)
-                .balance(sum)
-                .build();
-        CreateDepositRequest expectedResult = CreateDepositRequest.builder()
-                .id(id)
-                .balance(0)
-                .build();
+        CreateDepositRequest createDepositRequest = TestData.buildCreateDepositRequest(id, sum);
+        CreateDepositRequest expectedResult = TestData.buildCreateDepositRequest(id, 0);
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.DEPOSITS,
@@ -69,10 +62,7 @@ public class DepositUserAccountTest extends BaseTest {
     public void userCanNotMakeDepositIntoUnCreatedAccount() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
-        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
-                .id(0)
-                .balance(100)
-                .build();
+        CreateDepositRequest createDepositRequest = TestData.buildCreateDepositRequest(0L, 100);
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.DEPOSITS,
@@ -86,14 +76,8 @@ public class DepositUserAccountTest extends BaseTest {
         AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
         CreateUserRequest userRequestAnother = AdminSteps.createUser();
         Long id = AccountSteps.createAccountAndGetId(userRequestAnother.getUsername(), userRequestAnother.getPassword());
-        CreateDepositRequest createDepositRequest = CreateDepositRequest.builder()
-                .id(id)
-                .balance(100)
-                .build();
-        CreateDepositRequest expectedResult = CreateDepositRequest.builder()
-                .id(id)
-                .balance(0)
-                .build();
+        CreateDepositRequest createDepositRequest = TestData.buildCreateDepositRequest(id, 100);
+        CreateDepositRequest expectedResult = TestData.buildCreateDepositRequest(id, 0);
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.DEPOSITS,

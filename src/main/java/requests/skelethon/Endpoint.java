@@ -16,7 +16,9 @@ public enum Endpoint {
 
     UPDATE_NAME("/customer/profile", UpdateNameRequest.class, BaseModel.class),
 
-    DEPOSITS("/accounts/deposit", CreateDepositRequest.class, BaseModel.class);
+    DEPOSITS("/accounts/deposit", CreateDepositRequest.class, BaseModel.class),
+
+    TRANSFER("/accounts/transfer", CreateTransferRequest.class, BaseModel.class);
     private final String url;
     private final Class<? extends BaseModel> requestModel;
 

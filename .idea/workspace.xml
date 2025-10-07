@@ -4,23 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add: refactor 1 senior">
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AccountSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/ProfileInfoSteps.java" afterDir="false" />
+    <list default="true" id="fcb5a005-e02a-41ad-94a9-2bcf2082889d" name="Changes" comment="add: refactor 2 interation senior">
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/DepositSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/TestData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/UpdateNameRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/UpdateNameRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/AdminLoginUserRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/UpdateUserNameRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/AdminCreateUserRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/CreateDepositRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/CreateTransferRequester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/GetProfileInfoRequester.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/CrudEndpointInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/CrudRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/ValidatedCrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requests/ValidatedCrudRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/interation1/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation1/CreateAccountTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/interation1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation1/CreateUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/interation1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation1/LoginUserTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/DepositUserAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/interation2/TransferBetweenAccountsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/TransferBetweenAccountsTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interation2/UpdateUserNameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,8 +75,8 @@
       <recent name="C:\dev\tests-nbank\docs" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoAnotherUsersAccount">
-    <configuration name="DepositUserAccountTest.userCanMakeDepositIntoOwnAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenNonExistentAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
@@ -91,14 +85,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="interation2" />
-      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
-      <option name="METHOD_NAME" value="userCanMakeDepositIntoOwnAccount" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenNonExistentAccounts" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoAnotherUsersAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
@@ -107,14 +101,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="interation2" />
-      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
-      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoAnotherUsersAccount" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoOwnAccountInvalidSum" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsWithInvalidAmount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
@@ -123,14 +117,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="interation2" />
-      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
-      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoOwnAccountInvalidSum(java.lang.Double,java.lang.String)" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAccountsWithInvalidAmount(java.lang.Double,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
@@ -139,14 +133,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="interation2" />
-      <option name="MAIN_CLASS_NAME" value="interation2.DepositUserAccountTest" />
-      <option name="METHOD_NAME" value="userCanNotMakeDepositIntoUnCreatedAccount" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UpdateUserNameTest.userCanNotUpdateNameWithInvalidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferBetweenAccountsTest.userCanNotMakeTransferBetweenSameAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tests-nbank" />
       <extension name="coverage">
         <pattern>
@@ -155,8 +149,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="interation2" />
-      <option name="MAIN_CLASS_NAME" value="interation2.UpdateUserNameTest" />
-      <option name="METHOD_NAME" value="userCanNotUpdateNameWithInvalidData(java.lang.String,java.lang.String)" />
+      <option name="MAIN_CLASS_NAME" value="interation2.TransferBetweenAccountsTest" />
+      <option name="METHOD_NAME" value="userCanNotMakeTransferBetweenSameAccounts" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -164,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoAnotherUsersAccount" />
-        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoUnCreatedAccount" />
-        <item itemvalue="JUnit.DepositUserAccountTest.userCanNotMakeDepositIntoOwnAccountInvalidSum" />
-        <item itemvalue="JUnit.DepositUserAccountTest.userCanMakeDepositIntoOwnAccount" />
-        <item itemvalue="JUnit.UpdateUserNameTest.userCanNotUpdateNameWithInvalidData" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenNonExistentAccounts" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenSameAccounts" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts" />
+        <item itemvalue="JUnit.TransferBetweenAccountsTest.userCanNotMakeTransferBetweenOwnAccountsWithInvalidAmount" />
       </list>
     </recent_temporary>
   </component>
@@ -244,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1759699307635</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add: refactor 2 interation senior">
+      <created>1759786110837</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1759786110837</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -265,6 +266,7 @@
     <MESSAGE value="add api autotests for 2 interation middle" />
     <MESSAGE value="fix: review#1" />
     <MESSAGE value="add: refactor 1 senior" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: refactor 1 senior" />
+    <MESSAGE value="add: refactor 2 interation senior" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: refactor 2 interation senior" />
   </component>
 </project>

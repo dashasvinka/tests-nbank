@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import requests.skelethon.Endpoint;
 import requests.skelethon.requests.CrudRequester;
 import requests.steps.AdminSteps;
+import requests.steps.TestData;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
@@ -48,26 +49,17 @@ public class UpdateUserNameTest extends BaseTest {
     @ParameterizedTest
     public void userCanNotUpdateNameWithInvalidData(String name, String errorMessage) {
         CreateUserRequest userRequest = AdminSteps.createUser();
-
-        UpdateNameRequest updateNameRequest = UpdateNameRequest.builder()
-                .name(name)
-                .build();
-
-        UpdateNameRequest expectedResult = UpdateNameRequest.builder()
-                .name(null)
-                .build();
-
+        UpdateNameRequest updateNameRequest = TestData.buildUpdateNameRequest(name);
+        UpdateNameRequest expectedResult = TestData.buildUpdateNameRequest(null);
         new CrudRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.UPDATE_NAME,
                 ResponseSpecs.requestReturnsBadRequest(errorMessage))
                 .put(updateNameRequest);
-
         GetProfileInfoResponse getProfileInfoResponse = new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.PROFILE_INFO,
                 ResponseSpecs.requestReturnsOK()
         ).get(GetProfileInfoResponse.class);
-
         ModelAssertions.assertThatModels(expectedResult, getProfileInfoResponse).match();
     }
 }
