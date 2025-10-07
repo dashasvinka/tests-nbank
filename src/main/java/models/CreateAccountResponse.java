@@ -1,20 +1,19 @@
 package models;
 
-import generators.GeneratingRule;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateDepositRequest extends BaseModel{
-
-    @GeneratingRule(regex = "^[1-9][0-9]{0,3}$")
+public class CreateAccountResponse extends BaseModel {
     private long id;
-
-    @GeneratingRule(regex = "^(?:[0-9]{1,3}|[1-4][0-9]{3}|5000)$")
+    private String accountNumber;
     private double balance;
+    private List<String> transactions;
 }

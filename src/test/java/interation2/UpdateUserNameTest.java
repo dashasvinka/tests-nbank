@@ -1,15 +1,17 @@
 package interation2;
 
-import generators.RandomData;
+import generators.RandomModelGenerator;
 import interation1.BaseTest;
 import models.*;
+import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import requests.AdminCreateUserRequester;
-import requests.GetProfileInfoRequester;
-import requests.UpdateUserNameRequester;
+import requests.skelethon.Endpoint;
+import requests.skelethon.requests.CrudRequester;
+import requests.steps.AdminSteps;
+import requests.steps.TestData;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
@@ -19,30 +21,22 @@ public class UpdateUserNameTest extends BaseTest {
 
     @Test
     public void userCanUpdateNameWithCorrectData() {
-        CreateUserRequest userRequest = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
+        CreateUserRequest userRequest = AdminSteps.createUser();
 
-        // создание пользователя
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequest);
+        UpdateNameRequest updateNameRequest = RandomModelGenerator.generate(UpdateNameRequest.class);
 
-        UpdateNameRequest updateNameRequest = UpdateNameRequest.builder()
-                .name("Ivan Petrov")
-                .build();
-        // изменение имени пользователя
-        new UpdateUserNameRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+        new CrudRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.UPDATE_NAME,
                 ResponseSpecs.requestReturnsOK())
                 .put(updateNameRequest);
-        // проверяем что имя изменилось
-        GetProfileInfoResponse result = new GetProfileInfoRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsOK())
-                .get().extract().as(GetProfileInfoResponse.class);
-        softly.assertThat("Ivan Petrov").isEqualTo(result.getName());
+
+        GetProfileInfoResponse getProfileInfoResponse = new CrudRequester(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.PROFILE_INFO,
+                ResponseSpecs.requestReturnsOK()
+        ).get(GetProfileInfoResponse.class);
+
+        ModelAssertions.assertThatModels(updateNameRequest, getProfileInfoResponse).match();
     }
 
     public static Stream<Arguments> nameInvalidData() {
@@ -54,30 +48,18 @@ public class UpdateUserNameTest extends BaseTest {
     @MethodSource("nameInvalidData")
     @ParameterizedTest
     public void userCanNotUpdateNameWithInvalidData(String name, String errorMessage) {
-        CreateUserRequest userRequest = CreateUserRequest.builder()
-                .username(RandomData.getUsername())
-                .password(RandomData.getPassword())
-                .role(UserRole.USER.toString())
-                .build();
-
-        // создание пользователя
-        new AdminCreateUserRequester(
-                RequestSpecs.adminSpec(),
-                ResponseSpecs.entityWasCreated())
-                .post(userRequest);
-
-        UpdateNameRequest updateNameRequest = UpdateNameRequest.builder()
-                .name(name)
-                .build();
-
-        // изменение имени пользователя
-        new UpdateUserNameRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+        CreateUserRequest userRequest = AdminSteps.createUser();
+        UpdateNameRequest updateNameRequest = TestData.buildUpdateNameRequest(name);
+        UpdateNameRequest expectedResult = TestData.buildUpdateNameRequest(null);
+        new CrudRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.UPDATE_NAME,
                 ResponseSpecs.requestReturnsBadRequest(errorMessage))
                 .put(updateNameRequest);
-        // проверяем что имя изменилось
-        GetProfileInfoResponse result = new GetProfileInfoRequester(RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
-                ResponseSpecs.requestReturnsOK())
-                .get().extract().as(GetProfileInfoResponse.class);
-        softly.assertThat(result.getName()).isEqualTo(null);
+        GetProfileInfoResponse getProfileInfoResponse = new CrudRequester(
+                RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
+                Endpoint.PROFILE_INFO,
+                ResponseSpecs.requestReturnsOK()
+        ).get(GetProfileInfoResponse.class);
+        ModelAssertions.assertThatModels(expectedResult, getProfileInfoResponse).match();
     }
 }
