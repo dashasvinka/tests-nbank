@@ -4,10 +4,13 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
-import models.CreateUserRequest;
+import api.models.CreateUserRequest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import requests.steps.AdminSteps;
+import api.requests.steps.AdminSteps;
+import ui.pages.AdminPanel;
+import ui.pages.LoginPage;
+import ui.pages.UserDashboard;
 
 import java.util.Map;
 
@@ -29,25 +32,16 @@ public class LoginUserTest {
 
     @Test
     public void adminCanLoginWithCorrectDataTest() {
-        CreateUserRequest admin = CreateUserRequest.builder().username("admin").password("admin").build();
-
-        Selenide.open("/login");
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(admin.getUsername());
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(admin.getPassword());
-        $("button").click();
-
-        $(Selectors.byText("Admin Panel")).shouldBe(Condition.visible);
+        CreateUserRequest admin = CreateUserRequest.getAdmin();
+        new LoginPage().open().login(admin.getUsername(), admin.getPassword())
+                .getPage(AdminPanel.class).getAdminPanelText().shouldBe(Condition.visible);
     }
 
     @Test
     public void userCanLoginWithCorrectDataTest() {
         CreateUserRequest user = AdminSteps.createUser();
-        Selenide.open("/login");
-
-        $(Selectors.byAttribute("placeholder", "Username")).sendKeys(user.getUsername());
-        $(Selectors.byAttribute("placeholder", "Password")).sendKeys(user.getPassword());
-        $("button").click();
-
-        $(Selectors.byClassName("welcome-text")).shouldBe(Condition.visible).shouldHave(Condition.text("Welcome, noname!"));
+        new LoginPage().open().login(user.getUsername(), user.getPassword())
+                .getPage(UserDashboard.class).getWelcomeText()
+                .shouldBe(Condition.visible).shouldHave(Condition.text("Welcome, noname!"));
     }
 }

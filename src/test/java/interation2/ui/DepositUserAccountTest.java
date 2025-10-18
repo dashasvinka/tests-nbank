@@ -1,22 +1,23 @@
 package interation2.ui;
 
+import api.models.*;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
-import generators.RandomModelGenerator;
-import models.*;
-import models.comparison.ModelAssertions;
+import api.generators.RandomModelGenerator;
+import api.models.*;
+import api.models.comparison.ModelAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
-import requests.skelethon.Endpoint;
-import requests.skelethon.requests.CrudRequester;
-import requests.steps.AccountSteps;
-import requests.steps.AdminSteps;
-import requests.steps.ProfileInfoSteps;
-import requests.steps.TestData;
-import specs.RequestSpecs;
-import specs.ResponseSpecs;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requests.CrudRequester;
+import api.requests.steps.AccountSteps;
+import api.requests.steps.AdminSteps;
+import api.requests.steps.ProfileInfoSteps;
+import api.requests.steps.TestData;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 
 import java.util.Map;
 import java.util.regex.Pattern;
