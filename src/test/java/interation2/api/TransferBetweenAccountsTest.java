@@ -1,6 +1,6 @@
-package interation2;
+package interation2.api;
 
-import interation1.BaseTest;
+import interation1.api.BaseTest;
 import models.*;
 import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;

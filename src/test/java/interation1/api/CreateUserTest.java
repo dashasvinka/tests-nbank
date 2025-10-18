@@ -1,6 +1,7 @@
-package interation1;
+package interation1.api;
 
 import generators.RandomModelGenerator;
+import interation1.api.BaseTest;
 import models.CreateUserRequest;
 import models.CreateUserResponse;
 import models.comparison.ModelAssertions;

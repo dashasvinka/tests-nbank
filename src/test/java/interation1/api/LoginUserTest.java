@@ -1,5 +1,6 @@
-package interation1;
+package interation1.api;
 
+import interation1.api.BaseTest;
 import models.CreateUserRequest;
 import models.CreateUserResponse;
 import models.LoginUserRequest;
