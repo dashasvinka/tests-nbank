@@ -15,9 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 public class RequestSpecs {
-    private static Map<String, String> authHeaders = new HashMap<>(Map.of("admin","Basic YWRtaW46YWRtaW4="));
-    private RequestSpecs(){}
-    private static RequestSpecBuilder defaultRequestBuilder(){
+    private static Map<String, String> authHeaders = new HashMap<>(Map.of("admin", "Basic YWRtaW46YWRtaW4="));
+
+    private RequestSpecs() {
+    }
+
+    private static RequestSpecBuilder defaultRequestBuilder() {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
@@ -25,17 +28,24 @@ public class RequestSpecs {
                         new ResponseLoggingFilter()))
                 .setBaseUri(Config.getProperty("server") + Config.getProperty("apiVersion"));
     }
-    public static RequestSpecification unauthSpec(){
+
+    public static RequestSpecification unauthSpec() {
         return defaultRequestBuilder().build();
     }
 
-    public static RequestSpecification adminSpec(){
+    public static RequestSpecification adminSpec() {
         return defaultRequestBuilder()
                 .addHeader("Authorization", "Basic YWRtaW46YWRtaW4=")
                 .build();
     }
 
-    public static RequestSpecification authAsUser(String username, String password){
+    public static RequestSpecification authAsUser(String username, String password) {
+        return defaultRequestBuilder()
+                .addHeader("Authorization", getUserAuthHeader(username, password))
+                .build();
+    }
+
+    public static String getUserAuthHeader(String username, String password) {
         String userAuthHeader;
         if (!authHeaders.containsKey(username)) {
             userAuthHeader = new CrudRequester(
@@ -47,12 +57,9 @@ public class RequestSpecs {
                     .header("Authorization");
 
             authHeaders.put(username, userAuthHeader);
-        } else  {
+        } else {
             userAuthHeader = authHeaders.get(username);
         }
-
-        return defaultRequestBuilder()
-                .addHeader("Authorization", userAuthHeader)
-                .build();
+        return userAuthHeader;
     }
 }

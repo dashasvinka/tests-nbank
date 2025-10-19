@@ -8,6 +8,8 @@ import api.requests.skelethon.requests.ValidatedCrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 
+import java.util.List;
+
 public class AdminSteps {
     public static CreateUserRequest createUser(){
         CreateUserRequest userRequest = RandomModelGenerator.generate(CreateUserRequest.class);
@@ -17,5 +19,12 @@ public class AdminSteps {
                 ResponseSpecs.entityWasCreated())
                 .post(userRequest);
         return userRequest;
+    }
+
+    public static List<CreateUserResponse> getAllUsers(){
+        return new ValidatedCrudRequester<CreateUserResponse>(
+                RequestSpecs.adminSpec(),
+                Endpoint.ADMIN_USER,
+                ResponseSpecs.requestReturnsOK()).getAll(CreateUserResponse[].class);
     }
 }

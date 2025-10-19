@@ -19,7 +19,10 @@ public enum Endpoint {
 
     DEPOSITS("/accounts/deposit", CreateDepositRequest.class, BaseModel.class),
 
-    TRANSFER("/accounts/transfer", CreateTransferRequest.class, BaseModel.class);
+    TRANSFER("/accounts/transfer", CreateTransferRequest.class, BaseModel.class),
+
+    CUSTOMER_ACCOUNTS("/customer/accounts", BaseModel.class, CreateAccountResponse.class);
+
     private final String url;
     private final Class<? extends BaseModel> requestModel;
 
