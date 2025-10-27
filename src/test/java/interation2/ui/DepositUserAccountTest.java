@@ -38,7 +38,7 @@ public class DepositUserAccountTest extends BaseUiTest {
         Long id = AccountSteps.createAccountAndGetId(SessionStorage.getUser(1).getUsername(), SessionStorage.getUser(1).getPassword());
         CreateDepositRequest createDepositRequest  = RandomModelGenerator.generate(CreateDepositRequest.class);
         createDepositRequest.setId(id);
-        createDepositRequest.setBalance(40000);
+        createDepositRequest.setBalance(createDepositRequest.getBalance()*10000);
         String idForDeposit =  Long.toString(createDepositRequest.getId());
         String balance =  Double.toString(createDepositRequest.getBalance());
 
