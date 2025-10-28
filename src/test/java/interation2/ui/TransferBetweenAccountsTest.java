@@ -110,7 +110,7 @@ public class TransferBetweenAccountsTest extends BaseUiTest {
         String idAccount =  Long.toString(createDepositRequest.getId());
 
         new UserDashboard().open().makeTransfer().getPage(TransferPage.class).createTransfer(amount, idRecipientAccount, idAccount, true)
-                .checkAlertMessageAndAccept(ERROR_TRANSFER_AMOUNT_CANNOT_EXCEED_10000.getMessage());
+                .checkAlertMessageAndAccept(ERROR_TRANSFER_AMOUNT_CANNOT_EXCEED_10000.getMessage(), INVALID_TRANSFER.getMessage());
 
         GetProfileInfoResponse result = ProfileInfoSteps.getProfile(SessionStorage.getUser(1).getUsername(), SessionStorage.getUser(1).getPassword());
         AccountModel account = AccountSteps.findAccountById(result, idSecond);

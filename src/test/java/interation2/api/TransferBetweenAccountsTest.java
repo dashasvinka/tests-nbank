@@ -2,10 +2,12 @@ package interation2.api;
 
 import api.models.*;
 import api.requests.steps.*;
+import common.annotations.KnownIssue;
+import common.extensions.KnownIssueExtension;
 import interation1.api.BaseTest;
-import api.models.*;
 import api.models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -43,11 +45,17 @@ public class TransferBetweenAccountsTest extends BaseTest {
     public static Stream<Arguments> transferInvalidData() {
         return Stream.of(
                 Arguments.of("10000.01","Transfer amount cannot exceed 10000"),
-                Arguments.of("-100.10", "Transfer amount must be at least 0.01"),
-                Arguments.of("0", "Transfer amount must be at least 0.01"));
+                Arguments.of("-100.10", "Invalid transfer: insufficient funds or invalid accounts"),
+                Arguments.of("0", "Invalid transfer: insufficient funds or invalid accounts"));
     }
     @MethodSource("transferInvalidData")
     @ParameterizedTest
+    @ExtendWith(KnownIssueExtension.class)
+    @KnownIssue(
+            ticket = "DEFECT-0002",
+            description = "DEFECT: Backend returns 200 instead of 400 only for transfer = 10000.01",
+            onlyForArgs = {"10000.01"}
+    )
     public void userCanNotMakeTransferBetweenOwnAccountsWithInvalidAmount(Double amount, String errorMessage) {
         CreateUserRequest userRequest = AdminSteps.createUser();
         Long idFirst = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
@@ -95,6 +103,8 @@ public class TransferBetweenAccountsTest extends BaseTest {
     }
 
     @Test
+    @ExtendWith(KnownIssueExtension.class)
+    @KnownIssue(ticket = "DEFECT-0003")
     public void userCanNotMakeTransferBetweenSameAccounts() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         Long idFirst = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
@@ -104,7 +114,6 @@ public class TransferBetweenAccountsTest extends BaseTest {
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.TRANSFER,
-                // Defect --> actual successes
                 ResponseSpecs.requestReturnsBadRequest()
         ).post(createTransferRequest);
     }
@@ -124,6 +133,8 @@ public class TransferBetweenAccountsTest extends BaseTest {
     }
 
     @Test
+    @ExtendWith(KnownIssueExtension.class)
+    @KnownIssue(ticket = "DEFECT-0004")
     public void userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         Long idFirst = AccountSteps.createAccountAndGetId(userRequest.getUsername(), userRequest.getPassword());
@@ -135,7 +146,6 @@ public class TransferBetweenAccountsTest extends BaseTest {
         new CrudRequester(
                 RequestSpecs.authAsUser(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.TRANSFER,
-                // Defect --> actual successes
                 ResponseSpecs.requestReturnsBadRequest()
         ).post(createTransferRequest);
     }

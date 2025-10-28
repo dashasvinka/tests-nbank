@@ -3,6 +3,7 @@ package ui.pages;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Alert;
+import ui.utils.RetryUtils;
 
 import java.util.regex.Pattern;
 
@@ -24,7 +25,16 @@ public class TransferPage extends BasePage<TransferPage> {
         amountInput.sendKeys(amount);
         recipientAccountInput.sendKeys(idRecipientAccount);
         selectAcc.click();
-        $(Selectors.byValue(idAccount)).click();
+        RetryUtils.retry(
+                () -> {
+                    var option = $(Selectors.byValue(idAccount));
+                    option.click();
+                    return option.isSelected();
+                },
+                clicked -> clicked,
+                5,
+                500
+        );
         if (needToConfirm) {
             confirmCheckButton.click();
         }
