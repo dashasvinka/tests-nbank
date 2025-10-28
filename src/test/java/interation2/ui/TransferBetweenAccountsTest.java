@@ -36,8 +36,10 @@ public class TransferBetweenAccountsTest extends BaseUiTest {
         GetProfileInfoResponse result = ProfileInfoSteps.getProfile(SessionStorage.getUser(1).getUsername(), SessionStorage.getUser(1).getPassword());
         AccountModel account = AccountSteps.findAccountById(result, idSecond);
         AccountModel accountSender = AccountSteps.findAccountById(result, idFirst);
-        ModelAssertions.assertThatModels(account, expectedReceiver).match();
-        ModelAssertions.assertThatModels(accountSender, expectedSender).match();
+        CreateDepositRequest actualReceiver = TestData.buildCreateDepositRequest(idFirst,(int) (account.getBalance().doubleValue()));
+        CreateDepositRequest actualSender = TestData.buildCreateDepositRequest(idFirst,(int) (accountSender.getBalance().doubleValue()));
+        ModelAssertions.assertThatModels(actualReceiver, expectedReceiver).match();
+        ModelAssertions.assertThatModels(actualSender, expectedSender).match();
     }
 
     @Test
