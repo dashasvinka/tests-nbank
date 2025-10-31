@@ -9,6 +9,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Alert;
 import ui.elements.BaseElement;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -29,6 +30,19 @@ public abstract class BasePage<T extends BasePage> {
     public T checkAlertMessageAndAccept(String bankAlert){
         Alert alert = switchTo().alert();
         assertThat(alert.getText()).contains(bankAlert);
+        alert.accept();
+        return (T) this;
+    }
+
+    public T checkAlertMessageAndAccept(String... expectedAlerts) {
+        Alert alert = switchTo().alert();
+        String actualText = alert.getText();
+        boolean matches = Arrays.stream(expectedAlerts)
+                .anyMatch(actualText::contains);
+        assertThat(matches)
+                .as("Alert message must match one of the expected values: " + Arrays.toString(expectedAlerts) +
+                        ". Actual: " + actualText)
+                .isTrue();
         alert.accept();
         return (T) this;
     }

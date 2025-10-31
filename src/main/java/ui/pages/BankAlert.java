@@ -9,13 +9,15 @@ public enum BankAlert {
     NEW_ACCOUNT_CREATED("✅ New Account Created! Account Number: "),
     NAME_UPDATED_SUCCESSFULLY("✅ Name updated successfully!"),
     NAME_MUST_CONTAIN_TWO_WORDS("Name must contain two words with letters only"),
+    PLEASE_ENTER_VALID_NAME("❌ Please enter a valid name."),
 
     SUCCESSFULLY_DEPOSITED("✅ Successfully deposited"),
     DEPOSIT_LESS_5000("❌ Please deposit less or equal to 5000$."),
     SUCCESSFULLY_TRANSFERRED("✅ Successfully transferred"),
     PLEASE_FILL_ALL_FIELDS_AND_CONFIRM("❌ Please fill all fields and confirm."),
     NO_USER_FOUND_WITH_ACCOUNT("❌ No user found with this account number."),
-    ERROR_TRANSFER_AMOUNT_CANNOT_EXCEED_10000("❌ Error: Transfer amount cannot exceed 10000");
+    ERROR_TRANSFER_AMOUNT_CANNOT_EXCEED_10000("❌ Error: Transfer amount cannot exceed 10000"),
+    INVALID_TRANSFER("Invalid transfer: insufficient funds or invalid accounts");
     private final String message;
     BankAlert(String message){
         this.message = message;

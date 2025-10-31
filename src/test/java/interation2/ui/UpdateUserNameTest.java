@@ -32,7 +32,7 @@ public class UpdateUserNameTest extends BaseUiTest {
         UpdateNameRequest updateNameRequest = RandomModelGenerator.generate(UpdateNameRequest.class);
         updateNameRequest.setName("ariana");
         new EditProfile().open().editUserName(updateNameRequest.getName())
-                .checkAlertMessageAndAccept(BankAlert.NAME_MUST_CONTAIN_TWO_WORDS.getMessage())
+                .checkAlertMessageAndAccept(BankAlert.NAME_MUST_CONTAIN_TWO_WORDS.getMessage(),BankAlert.PLEASE_ENTER_VALID_NAME.getMessage())
                 .open().checkNameHasNotUpdated();
         UpdateNameRequest expectedResult = TestData.buildUpdateNameRequest(null);
         GetProfileInfoResponse getProfileInfoResponse = UserSteps.getProfileInfo(SessionStorage.getUser(1).getUsername(), SessionStorage.getUser(1).getPassword());

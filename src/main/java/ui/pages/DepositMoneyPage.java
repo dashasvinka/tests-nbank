@@ -3,6 +3,7 @@ package ui.pages;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Alert;
+import ui.utils.RetryUtils;
 
 import java.util.regex.Pattern;
 
@@ -24,8 +25,17 @@ public class DepositMoneyPage extends BasePage<DepositMoneyPage> {
 
     public DepositMoneyPage createDeposit(String idForDeposit, String balance) {
         selectAcc.click();
-        $(Selectors.byValue(idForDeposit)).click();
-        amountInput.sendKeys((balance));
+        RetryUtils.retry(
+                () -> {
+                    var option = $(Selectors.byValue(idForDeposit));
+                    option.click();
+                    return option.isSelected();
+                },
+                clicked -> clicked,
+                5,
+                500
+        );
+        amountInput.sendKeys(balance);
         depositButton.click();
         return this;
     }

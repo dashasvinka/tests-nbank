@@ -3,6 +3,7 @@ package ui.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import ui.utils.RetryUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -17,8 +18,17 @@ public class EditProfile extends BasePage<EditProfile> {
         return "/edit-profile";
     }
 
-    public EditProfile editUserName(String newName){
-        newNameInput.sendKeys(newName);
+    public EditProfile editUserName(String newName) {
+        RetryUtils.retry(
+                () -> {
+                    newNameInput.clear();
+                    newNameInput.sendKeys(newName);
+                    return newNameInput.getAttribute("value");
+                },
+                enteredText -> newName.equals(enteredText),
+                5,
+                500
+        );
         saveChangesButton.click();
         return this;
     }

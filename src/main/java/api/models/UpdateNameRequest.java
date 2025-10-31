@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UpdateNameRequest extends BaseModel {
 
-    @GeneratingRule(regex = "^[A-Z][a-z]+ [A-Z][a-z]+$")
+    @GeneratingRule(regex = "^[A-Z][a-z]{1,9} [A-Z][a-z]{1,9}$")
     private String name;
 }
