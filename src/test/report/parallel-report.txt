@@ -19,5 +19,13 @@
 | ForkJoinPool-1-worker-8  |                  15755 | interation1.api.adminCanCreateUserWithCorrectData()                                                                                                         |            492 | interation1.api.[1] ab, Password33$, USER, username, [Username must be between 3 and 15 characters] |            822 | interation2.api.userCanNotMakeTransferBetweenSameAccounts()                       |           2215 | interation2.api.userCanNotMakeTransferBetweenOwnAndSomeoneElseAccount()  |           4155 | interation2.api.userCanNotMakeTransferBetweenOwnAccountsOverDepositAmounts() |           5397 | interation2.api.userCanNotMakeTransferBetweenNonExistentAccounts() |           2674 | nan                                                            |            nan | nan                                           |            nan |
 | ForkJoinPool-1-worker-9  |                  22189 | interation1.api.[2]    , Password33$, USER, username, [Username cannot be blank, Username must contain only letters, digits, dashes, underscores, and dots] |            899 | interation1.ui.userCanLoginWithCorrectDataTest()                                                    |          21290 | nan                                                                               |            nan | nan                                                                      |            nan | nan                                                                          |            nan | nan                                                                |            nan | nan                                                            |            nan | nan                                           |            nan |
 
+# Конфигурационные настроки параллельного запуска:
+
+# junit.jupiter.execution.parallel.enabled = true
+# junit.jupiter.execution.parallel.mode.default = concurrent
+# junit.jupiter.execution.parallel.config.strategy = fixed
+# junit.jupiter.execution.parallel.config.fixed.parallelism = 5
+
+# Результаты по экономии времени:
 Total time before parallel-run:  01:36 min
 Total time after parallel-run:  01:18 min
