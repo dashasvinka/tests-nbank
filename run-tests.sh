@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# для запуска я использую в консоли bash ./run-tests.sh <TEST_PROFILE>
+
 # настройка
 IMAGE_NAME=nbank-tests
 TEST_PROFILE=${1:-api} #аргумент запуска
@@ -9,8 +11,6 @@ TEST_OUTPUT_DIR=./test-output/$TIMESTAMP
 # сборка docker образ
 echo ">>> Сборка тестов запущена"
 docker build -t "$IMAGE_NAME" .
-
-# для запуска я использую в консоли bash ./run-tests.sh
 
 mkdir -p "$TEST_OUTPUT_DIR/logs"
 mkdir -p "$TEST_OUTPUT_DIR/results"
