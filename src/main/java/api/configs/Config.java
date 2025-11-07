@@ -19,7 +19,19 @@ public class Config {
         }
     }
 
-    public static String getProperty(String key){
+    public static String getProperty(String key) {
+        // приоритет 1 - системное свойство baseApiUrl = ...
+        String systemValue = System.getProperty(key);
+        if (systemValue != null){
+            return systemValue;
+        }
+        // приоритет 2 - переменная окружения baseApiUrl - BASEAPIURL
+        String envKey = key.toUpperCase().replace('.','_');
+        String envValue = System.getenv(envKey);
+        if (envValue != null){
+            return envValue;
+        }
+        // приоритет 3 - config.properties
         return INSTANCE.properties.getProperty(key);
     }
 }
