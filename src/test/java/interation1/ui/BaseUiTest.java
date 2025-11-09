@@ -26,7 +26,11 @@ public class BaseUiTest extends BaseTest {
         Configuration.browser = Config.getProperty("browser");
         Configuration.browserSize = Config.getProperty("browserSize");
         Configuration.headless = true;
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide()
+                        .screenshots(true)          // включаем скриншоты
+                        .savePageSource(false)      // сохранять HTML-страницу (по желанию)
+        );
 
         Configuration.browserCapabilities.setCapability(
                 "selenoid:options",

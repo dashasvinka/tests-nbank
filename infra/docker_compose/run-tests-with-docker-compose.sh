@@ -25,14 +25,23 @@ run_tests() {
   # Строим Docker-образ из текущей директории
   docker build -t "$IMAGE_NAME" .
 
+  # Базовые переменные окружения
+  ENV_VARS="-e TEST_PROFILE=$profile \
+            -e SERVER=http://backend:4111 \
+            -e BASEURL=http://frontend:80"
+
+  # Для UI-тестов добавляем только Selenoid
+  if [[ "$profile" == "ui" ]]; then
+    ENV_VARS="$ENV_VARS -e SELENOID_URI=http://selenoid:4444"
+  fi
+
   # Запускаем контейнер и одновременно выводим лог в консоль и в файл
   docker run --rm \
+    --network nbank-network \
+    $ENV_VARS \
     -v "$TEST_OUTPUT_DIR/logs":/app/logs \
     -v "$TEST_OUTPUT_DIR/results":/app/target/surefire-reports \
     -v "$TEST_OUTPUT_DIR/report":/app/target/site \
-    -e TEST_PROFILE="$profile" \
-    -e SERVER=http://host.docker.internal:4111 \
-    -e BASEURL=http://host.docker.internal:3000 \
     "$IMAGE_NAME" \
     bash -c "mvn test -P\$TEST_PROFILE | tee /app/logs/run.log"
 
