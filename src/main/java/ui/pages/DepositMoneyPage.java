@@ -26,6 +26,7 @@ public class DepositMoneyPage extends BasePage<DepositMoneyPage> {
     public DepositMoneyPage createDeposit(String idForDeposit, String balance) {
         selectAcc.click();
         RetryUtils.retry(
+                "Выбор счета для депозита после его появления",
                 () -> {
                     var option = $(Selectors.byValue(idForDeposit));
                     option.click();

@@ -7,6 +7,7 @@ import api.requests.skelethon.requests.CrudRequester;
 import api.requests.skelethon.requests.ValidatedCrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import common.helpers.StepLogger;
 import ui.utils.RetryUtils;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class UserSteps {
     }
 
     public List<CreateAccountResponse> getAllAccountsWithEmptyValidation() {
+        return StepLogger.log("User " + username + " get all accounts", () -> {
         ValidatedCrudRequester<CreateAccountResponse> requester =
                 new ValidatedCrudRequester<>(
                         RequestSpecs.authAsUser(username, password),
@@ -27,11 +29,13 @@ public class UserSteps {
                         ResponseSpecs.requestReturnsOK()
                 );
         return RetryUtils.retry(
+                "Получение всех пользователей",
                 () -> requester.getAll(CreateAccountResponse[].class),
                 accounts -> accounts != null && !accounts.isEmpty(),
                 10,
                 2000
         );
+        });
     }
 
     public static GetProfileInfoResponse getProfileInfo(String username, String password){

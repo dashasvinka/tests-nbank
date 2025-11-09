@@ -11,7 +11,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.within;
-import static ui.pages.BankAlert.SUCCESSFULLY_DEPOSITED;
 import static ui.pages.BankAlert.SUCCESSFULLY_TRANSFERRED;
 
 public class TransferPage extends BasePage<TransferPage> {
@@ -26,6 +25,7 @@ public class TransferPage extends BasePage<TransferPage> {
         recipientAccountInput.sendKeys(idRecipientAccount);
         selectAcc.click();
         RetryUtils.retry(
+                "Выбор счета для трансфера после его появления в списке для выбора",
                 () -> {
                     var option = $(Selectors.byValue(idAccount));
                     option.click();

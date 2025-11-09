@@ -20,6 +20,7 @@ public class EditProfile extends BasePage<EditProfile> {
 
     public EditProfile editUserName(String newName) {
         RetryUtils.retry(
+                "Ввод пользовательского имени и проверка его отображения",
                 () -> {
                     newNameInput.clear();
                     newNameInput.sendKeys(newName);
