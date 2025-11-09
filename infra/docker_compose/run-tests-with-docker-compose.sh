@@ -28,7 +28,7 @@ run_tests() {
   # Базовые переменные окружения
   ENV_VARS="-e TEST_PROFILE=$profile \
             -e SERVER=http://backend:4111 \
-            -e BASEURL=http://frontend:80"
+            -e BASEURL=http://frontend"
 
   # Для UI-тестов добавляем только Selenoid
   if [[ "$profile" == "ui" ]]; then
