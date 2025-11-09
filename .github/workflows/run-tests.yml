@@ -32,4 +32,4 @@ jobs: # аналог этапов
         run: ./mvnw clean test -q
         env:
           SERVER: http://localhost:4111
-          BASEURL: http://frontend
+          BASEURL: http://localhost:3000
