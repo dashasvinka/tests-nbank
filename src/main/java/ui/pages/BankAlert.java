@@ -13,6 +13,7 @@ public enum BankAlert {
 
     SUCCESSFULLY_DEPOSITED("✅ Successfully deposited"),
     DEPOSIT_LESS_5000("❌ Please deposit less or equal to 5000$."),
+    PLEASE_ENTER_VALID_AMOUNT( "❌ Please enter a valid amount."),
     SUCCESSFULLY_TRANSFERRED("✅ Successfully transferred"),
     PLEASE_FILL_ALL_FIELDS_AND_CONFIRM("❌ Please fill all fields and confirm."),
     NO_USER_FOUND_WITH_ACCOUNT("❌ No user found with this account number."),

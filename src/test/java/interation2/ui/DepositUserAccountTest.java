@@ -13,6 +13,7 @@ import api.requests.steps.TestData;
 import ui.pages.DepositMoneyPage;
 import ui.pages.UserDashboard;
 import static ui.pages.BankAlert.DEPOSIT_LESS_5000;
+import static ui.pages.BankAlert.PLEASE_ENTER_VALID_AMOUNT;
 
 public class DepositUserAccountTest extends BaseUiTest {
 
@@ -43,7 +44,7 @@ public class DepositUserAccountTest extends BaseUiTest {
         String balance =  Double.toString(createDepositRequest.getBalance());
 
         new UserDashboard().open().depositMoney().getPage(DepositMoneyPage.class).createDeposit(idForDeposit, balance)
-                .checkAlertMessageAndAccept(DEPOSIT_LESS_5000.getMessage());
+                .checkAlertMessageAndAccept(DEPOSIT_LESS_5000.getMessage(), PLEASE_ENTER_VALID_AMOUNT.getMessage());
         CreateDepositRequest expectedResult = TestData.buildCreateDepositRequest(id, 0);
         GetProfileInfoResponse result = ProfileInfoSteps.getProfile(SessionStorage.getUser(1).getUsername(), SessionStorage.getUser(1).getPassword());
         AccountModel account = AccountSteps.findAccountById(result, id);

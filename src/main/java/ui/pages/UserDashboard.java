@@ -2,7 +2,9 @@ package ui.pages;
 
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import lombok.Getter;
+import static ui.utils.AllureUtils.attachScreenshot;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -19,18 +21,24 @@ public class UserDashboard extends BasePage<UserDashboard> {
         return "/dashboard";
     }
 
+    @Step("Выбрать опцию Создать новый аккаунт")
     public UserDashboard createNewAccount() {
         createNewAccount.click();
+        attachScreenshot("Скриншот после выбора опции 'Создать новый аккаунт'"); // <--- скриншот
         return this;
     }
 
+    @Step("Выбрать опцию Создать новый депозит")
     public UserDashboard depositMoney() {
         depositMoney.click();
+        attachScreenshot("Скриншот после выбора опции 'Создать новый депозит'"); // <--- скриншот
         return this;
     }
 
+    @Step("Выбрать опцию Создать новый трансфер")
     public UserDashboard makeTransfer() {
         makeTransfer.click();
+        attachScreenshot("Скриншот после выбора опции 'Создать новый трансфер'"); // <--- скриншот
         return this;
     }
 }

@@ -6,6 +6,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import ui.elements.BaseElement;
 
@@ -27,6 +28,7 @@ public abstract class BasePage<T extends BasePage> {
 
     public <T extends BasePage> T getPage(Class<T> pageClass) {return  Selenide.page(pageClass); }
 
+    @Step("Проверить нотификацию и принять")
     public T checkAlertMessageAndAccept(String bankAlert){
         Alert alert = switchTo().alert();
         assertThat(alert.getText()).contains(bankAlert);
@@ -34,6 +36,7 @@ public abstract class BasePage<T extends BasePage> {
         return (T) this;
     }
 
+    @Step("Проверить нотификацию и принять")
     public T checkAlertMessageAndAccept(String... expectedAlerts) {
         Alert alert = switchTo().alert();
         String actualText = alert.getText();
@@ -47,12 +50,14 @@ public abstract class BasePage<T extends BasePage> {
         return (T) this;
     }
 
+    @Step("Залогиниться как пользователь")
     public static void authAsUser(String username, String password){
         Selenide.open("/");
         String userAuthHeader = RequestSpecs.getUserAuthHeader(username, password);
         executeJavaScript("localStorage.setItem('authToken', arguments[0]);", userAuthHeader);
     }
 
+    @Step("Залогиниться как пользователь")
     public static void authAsUser(CreateUserRequest createUserRequest){
         authAsUser(createUserRequest.getUsername(),createUserRequest.getPassword());
     }
@@ -61,6 +66,4 @@ public abstract class BasePage<T extends BasePage> {
     protected <T extends BaseElement> List<T> generatePageElements(ElementsCollection elementsCollection, Function<SelenideElement, T> constructor){
         return elementsCollection.stream().map(constructor).toList();
     }
-
-
 }

@@ -3,9 +3,11 @@ package ui.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import ui.utils.RetryUtils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static ui.utils.AllureUtils.attachScreenshot;
 
 public class EditProfile extends BasePage<EditProfile> {
 
@@ -18,8 +20,10 @@ public class EditProfile extends BasePage<EditProfile> {
         return "/edit-profile";
     }
 
+    @Step("Изменить пользовательское наименование")
     public EditProfile editUserName(String newName) {
         RetryUtils.retry(
+                "Ввод пользовательского имени и проверка его отображения",
                 () -> {
                     newNameInput.clear();
                     newNameInput.sendKeys(newName);
@@ -33,11 +37,15 @@ public class EditProfile extends BasePage<EditProfile> {
         return this;
     }
 
-    public void checkUpdatedName(String newName){
+    @Step("Проверить измененное пользовательское наименование")
+    public void checkUpdatedName(String newName) {
         $(Selectors.byText(newName)).shouldBe(Condition.visible);
+        attachScreenshot("Скриншот после проверки измененного имени: " + newName);
     }
 
-    public void checkNameHasNotUpdated(){
+    @Step("Проверить неизмененное пользовательское наименование")
+    public void checkNameHasNotUpdated() {
         noNameLabel.shouldBe(Condition.visible);
+        attachScreenshot("Скриншот после проверки неизмененного имени");
     }
 }

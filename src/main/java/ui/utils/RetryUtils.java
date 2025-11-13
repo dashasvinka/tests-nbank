@@ -1,5 +1,6 @@
 package ui.utils;
 
+import common.helpers.StepLogger;
 import ui.elements.UserBage;
 
 import java.util.function.Predicate;
@@ -7,6 +8,7 @@ import java.util.function.Supplier;
 
 /**
  * Принимаем на вход общего ретрая:
+ * 0) тайтл с описанием шага для логгирования
  * 1) что повторяем
  * 2) условиям выхода
  * 3) максимальное количество попыток
@@ -14,6 +16,7 @@ import java.util.function.Supplier;
  */
 public class RetryUtils {
     public static <T> T retry(
+            String title,
             Supplier<T> action,
             Predicate<T> condition,
             int maxAttempts,
@@ -24,16 +27,24 @@ public class RetryUtils {
 
         while (attempts < maxAttempts) {
             attempts++;
-            result = action.get();
-            if (condition.test(result)) {
-                return result;
+
+            try {
+                result = StepLogger.log("Attempt " + attempts + ": " + title, () -> action.get());
+
+                if (condition.test(result)) {
+                    return result;
+                }
+            } catch (Throwable e) {
+                System.out.println("Exception " + e.getMessage());
             }
+
             try {
                 Thread.sleep(delayMillis);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+
         throw new RuntimeException("Retry failed after " + maxAttempts + " attempts!");
     }
 }
