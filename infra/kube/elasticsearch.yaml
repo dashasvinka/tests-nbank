@@ -1,0 +1,25 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: nbank-es
+  namespace: logging
+spec:
+  version: 8.15.0
+  nodeSets:
+    - name: default
+      count: 1
+      config:
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: 1Gi
+                  cpu: 100m
+                limits:
+                  memory: 2Gi
+                  cpu: 1
+  secureSettings:
+    - secretName: es-secret
